@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Оформление аренды</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <img src="logo.png" class="logo" alt="Логотип компании">
+    <nav>
+    <a href="index.html">Главная</a>
+    <a href="car.html">Автомобили</a>
+    <a href="entry.html">Аренда</a>
+    <a href="profile.html">Мои заказы</a>
+    <a href="terms.html">Условия</a>
+    <a href="admin.html" style="display: none;">Админ</a>
+</nav>
+</header>
+
+<main>
+    <div class="container">
+        <h1>Оформление аренды</h1>
+        <form id="rental-form">
+            <label>Выберите автомобиль:</label>
+            <select id="car-select"></select>
+
+            <label>Паспортные данные:</label>
+            <input type="text" id="passport" required>
+
+            <label>Срок аренды (в днях):</label>
+            <input type="number" id="duration" min="1" required>
+
+            <button type="submit">Отправить заявку</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    © 2025 Автопрокат. Все права защищены.
+</footer>
+
+<script src="entry.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const user = localStorage.getItem("currentUser");
+        const isAdmin = localStorage.getItem("isAdmin") === "true";
+        const nav = document.querySelector("nav");
+        
+        // Удаляем существующую кнопку входа/выхода если есть
+        const existingAuthBtn = document.querySelector(".auth-btn");
+        if (existingAuthBtn) {
+            existingAuthBtn.remove();
+        }
+        
+        // Скрываем кнопку админа если пользователь не админ
+        const adminLink = document.querySelector('a[href="admin.html"]');
+        if (adminLink) {
+            adminLink.style.display = isAdmin ? "inline-block" : "none";
+        }
+        
+        // Добавляем кнопку входа/выхода
+        const authBtn = document.createElement("a");
+        authBtn.className = "auth-btn";
+        
+        if (user) {
+            authBtn.textContent = `Выйти (${user})`;
+            authBtn.href = "#";
+            authBtn.onclick = () => {
+                localStorage.removeItem("currentUser");
+                localStorage.removeItem("isAdmin");
+                location.reload();
+            };
+        } else {
+            authBtn.textContent = "Вход";
+            authBtn.href = "login.html";
+        }
+        
+        nav.appendChild(authBtn);
+    });
+</script>
+</body>
+</html>

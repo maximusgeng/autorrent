@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Условия аренды</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .terms-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .terms-section {
+            margin-bottom: 30px;
+        }
+        .terms-section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .terms-list {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .terms-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .highlight {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #4CAF50;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" class="logo" alt="Логотип компании">
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="car.html">Автомобили</a>
+        <a href="entry.html">Аренда</a>
+        <a href="profile.html">Мои заказы</a>
+        <a href="terms.html">Условия</a>
+        <a href="admin.html" style="display: none;">Админ</a>
+    </nav>
+</header>
+
+<main>
+    <div class="container">
+        <div class="terms-container">
+            <h1>Условия аренды автомобилей</h1>
+            
+            <div class="terms-section">
+                <h2>Требования к арендатору</h2>
+                <ul class="terms-list">
+                    <li><strong>Возраст:</strong> от 21 года (для автомобилей класса "премиум" - от 25 лет)</li>
+                    <li><strong>Водительский стаж:</strong> не менее 2 лет</li>
+                    <li><strong>Гражданство:</strong> Беларусь или страны с признаваемым водительским удостоверением</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2>Необходимые документы</h2>
+                <ul class="terms-list">
+                    <li>Паспорт гражданина Республики Беларусь (или другой документ, удостоверяющий личность)</li>
+                    <li>Действующее водительское удостоверение</li>
+                    <li>Вторая форма удостоверения личности (ID-карта, загранпаспорт)</li>
+                    <li>Банковская карта для оплаты и блокировки депозита</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2>Ограничения и правила</h2>
+                <ul class="terms-list">
+                    <li>Запрещена передача автомобиля третьим лицам</li>
+                    <li>Запрещено использование автомобиля в коммерческих целях (такси, доставка)</li>
+                    <li>Запрещено пересечение границы без согласования</li>
+                    <li>Обязательно использование детских кресел для детей до 12 лет</li>
+                    <li>Запрещено курение в салоне автомобиля</li>
+                </ul>
+            </div>
+
+            <div class="terms-section">
+                <h2>Страхование и ответственность</h2>
+                <div class="highlight">
+                    <p>Все наши автомобили застрахованы по программе КАСКО. Арендатор несет ответственность за ущерб в пределах франшизы:</p>
+                    <ul class="terms-list">
+                        <li>Эконом-класс: 200 BYN</li>
+                        <li>Средний класс: 300 BYN</li>
+                        <li>Премиум-класс: 500 BYN</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="terms-section">
+                <h2>Дополнительные услуги</h2>
+                <ul class="terms-list">
+                    <li>Детское кресло: 10 BYN/сутки</li>
+                    <li>Навигатор: 5 BYN/сутки</li>
+                    <li>Дополнительный водитель: 15 BYN/сутки (должен соответствовать требованиям)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    © 2025 Автопрокат. Все права защищены.
+</footer>
+
+<script>
+    // Скрипт для управления отображением кнопки админа
+    document.addEventListener("DOMContentLoaded", () => {
+        const isAdmin = localStorage.getItem("isAdmin") === "true";
+        const adminLink = document.querySelector('a[href="admin.html"]');
+        if (adminLink) {
+            adminLink.style.display = isAdmin ? "inline-block" : "none";
+        }
+        
+        // Кнопка входа/выхода
+        const user = localStorage.getItem("currentUser");
+        const nav = document.querySelector("nav");
+        
+        if (user) {
+            const logoutBtn = document.createElement("a");
+            logoutBtn.textContent = `Выйти (${user})`;
+            logoutBtn.href = "#";
+            logoutBtn.onclick = () => {
+                localStorage.removeItem("currentUser");
+                localStorage.removeItem("isAdmin");
+                location.reload();
+            };
+            nav.appendChild(logoutBtn);
+        } else {
+            const loginBtn = document.createElement("a");
+            loginBtn.textContent = "Вход";
+            loginBtn.href = "login.html";
+            nav.appendChild(loginBtn);
+        }
+    });
+</script>
+</body>
+</html>

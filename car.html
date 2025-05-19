@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Доступные автомобили</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .car-block {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+        }
+        
+        .car-block:hover {
+            background-color: #f0f0f0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .car-details {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            background-color: #fff;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .car-details-expanded {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .car-image-container {
+            width: 100%;
+            height: 200px;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .car-image-placeholder {
+            color: #999;
+            font-size: 16px;
+        }
+        
+        .car-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .car-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .rent-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            align-self: flex-start;
+        }
+        
+        .rent-btn:hover {
+            background-color: #45a049;
+        }
+
+        .rent-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .status-available {
+            color: green;
+            font-weight: bold;
+        }
+        
+        .status-unavailable {
+            color: red;
+            font-weight: bold;
+        }
+
+        .status-reserved {
+            color: orange;
+            font-weight: bold;
+        }
+        
+        .car-info {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .car-main-info {
+            flex: 1;
+        }
+        
+        .car-status {
+            text-align: right;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" class="logo" alt="Логотип компании">
+    <nav>
+    <a href="index.html">Главная</a>
+    <a href="car.html">Автомобили</a>
+    <a href="entry.html">Аренда</a>
+    <a href="profile.html">Мои заказы</a>
+    <a href="terms.html">Условия</a>
+    <a href="admin.html" style="display: none;">Админ</a>
+</nav>
+</header>
+
+<main>
+    <div class="container">
+        <h1>Список доступных автомобилей</h1>
+        <div id="car-list"></div>
+    </div>
+</main>
+
+<footer>
+    © 2025 Автопрокат. Все права защищены.
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const user = localStorage.getItem("currentUser");
+    const nav = document.querySelector("nav");
+
+    // Если пользователь авторизован, показываем кнопку "Выйти"
+    if (user) {
+        const logoutBtn = document.createElement("a");
+        logoutBtn.textContent = `Выйти (${user})`;
+        logoutBtn.href = "#";
+        logoutBtn.onclick = () => {
+            localStorage.removeItem("currentUser");
+            location.reload();
+        };
+        nav.appendChild(logoutBtn);
+    } else {
+        // Если пользователь не авторизован, показываем кнопку "Вход"
+        const loginBtn = document.createElement("a");
+        loginBtn.textContent = "Вход";
+        loginBtn.href = "login.html";
+        nav.appendChild(loginBtn);
+    }
+
+    // Загружаем актуальные данные автомобилей
+    let cars = JSON.parse(localStorage.getItem("cars"));
+    
+    // Если нет данных, создаем начальные
+    if (!cars || cars.length === 0) {
+        cars = [
+            {
+                name: "Toyota Camry",
+                price: "110 руб/сутки",
+                specs: "2.5 л, 181 л.с., автомат",
+                description: "Комфортабельный седан бизнес-класса",
+                status: "Доступен",
+                availableAt: null,
+                image: "images/camry.png" // Только путь к изображению
+            },
+            {
+                name: "Kia Rio",
+                price: "100 руб/сутки",
+                specs: "1.6 л, 123 л.с., автомат",
+                description: "Экономичный и надежный городской автомобиль",
+                status: "Доступен",
+                availableAt: null,
+                image: "images/rio.png" // Только путь к изображению
+            },
+            {
+                name: "BMW X5",
+                price: "120 руб/сутки",
+                specs: "3.0 л, 249 л.с., автомат",
+                description: "Премиальный внедорожник с отличной динамикой",
+                status: "Доступен",
+                availableAt: null,
+                image: "images/x5.png" // Только путь к изображению
+            }
+        ];
+        localStorage.setItem("cars", JSON.stringify(cars));
+    }
+    
+    const carList = document.getElementById("car-list");
+    carList.innerHTML = "";
+    
+    cars.forEach(car => {
+        const carBlock = document.createElement("div");
+        carBlock.className = "car-block";
+        
+        // Определяем статус и доступность
+        const statusClass = `status-${car.status === "Доступен" ? "available" : 
+                           car.status === "Забронирован" ? "reserved" : "unavailable"}`;
+        
+        const availableText = car.status === "Доступен" ? "Сейчас" : 
+                            car.availableAt ? new Date(car.availableAt).toLocaleString() : "Недоступен";
+        
+        const isAvailable = car.status === "Доступен";
+        
+        carBlock.innerHTML = `
+            <div class="car-info">
+                <div class="car-main-info">
+                    <h3>${car.name}</h3>
+                    <p>${car.price}</p>
+                </div>
+                <div class="car-status">
+                    <p class="${statusClass}">${car.status}</p>
+                    <p>Доступен: ${availableText}</p>
+                </div>
+            </div>
+            <div class="car-details car-details-expanded">
+                <div class="car-image-container">
+                    ${car.image ? 
+                      `<img src="${car.image}" alt="${car.name}" class="car-image" 
+                           onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'car-image-placeholder\'>Ошибка загрузки фото</div>'">` : 
+                      `<div class="car-image-placeholder">Фото автомобиля</div>`}
+                </div>
+                <div class="car-specs">
+                    <div>
+                        <p><strong>Характеристики:</strong></p>
+                        <p>${car.specs}</p>
+                    </div>
+                    <div>
+                        <p><strong>Описание:</strong></p>
+                        <p>${car.description}</p>
+                    </div>
+                </div>
+                <button class="rent-btn" ${isAvailable ? '' : 'disabled'} 
+                    onclick="rentCar('${car.name}')">
+                    ${isAvailable ? 'Арендовать' : 'Недоступно'}
+                </button>
+            </div>
+        `;
+        
+        // Скрываем детали по умолчанию
+        const details = carBlock.querySelector('.car-details');
+        details.style.display = 'none';
+        
+        carBlock.addEventListener("click", function(e) {
+            if (!e.target.classList.contains('rent-btn')) {
+                details.style.display = details.style.display === 'none' ? 'block' : 'none';
+            }
+        });
+        
+        carList.appendChild(carBlock);
+    });
+});
+
+function rentCar(carName) {
+    const user = localStorage.getItem("currentUser");
+    if (!user) {
+        alert("Для аренды автомобиля необходимо авторизоваться");
+        window.location.href = "login.html";
+    } else {
+        window.location.href = `entry.html?car=${encodeURIComponent(carName)}`;
+    }
+}
+</script>
+
+</body>
+</html>

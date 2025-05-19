@@ -1,0 +1,494 @@
+/* Общие стили */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+header, footer {
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header img.logo {
+    max-height: 60px;
+    vertical-align: middle;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: #00d1ff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.banner {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+main {
+    padding: 30px;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    margin-top: 40px;
+    font-size: 14px;
+}
+
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #e9f7ff;
+}
+
+.hero h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.advantages {
+    margin-top: 40px;
+}
+
+.advantage-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.adv {
+    width: 30%;
+    min-width: 200px;
+    background: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.adv img {
+    width: 60px;
+    margin-bottom: 10px;
+}
+
+.banner {
+    max-width: 100%;
+    height: auto;
+    margin: 15px 0;
+}
+
+.advantage-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+}
+
+.adv {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    padding: 30px 20px;
+    max-width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.adv:hover {
+    transform: translateY(-5px);
+}
+
+.adv img {
+    width: 120px; /* увеличено */
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.adv h3 {
+    font-size: 1.4em;
+    margin: 10px 0 8px;
+    color: #222;
+}
+
+.adv p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.5;
+}
+
+.banner {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+    display: block;
+    border-radius: 8px; /* по желанию, для скругления углов */
+    object-fit: cover;  /* если хочешь обрезку под контейнер */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.banner-hero {
+    width: 100%;
+    height: auto; /* Сохраняем пропорции */
+    display: block;
+    border-radius: 8px; /* По желанию */
+    object-fit: contain; /* Или cover — смотри пояснение ниже */
+}
+
+/* Стили для карточек заказов */
+.order-card, .request-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.order-card h3, .request-card h3 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+.order-details, .order-info {
+    margin-top: 10px;
+}
+
+.order-details p, .order-info p {
+    margin: 5px 0;
+}
+
+/* Стили статусов */
+.status-подтвержден {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.status-отклонен {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.status-ожидает подтверждения {
+    color: #f39c12;
+    font-weight: bold;
+}
+
+/* Кнопки админки */
+.admin-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.approve-btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reject-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reason-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.error {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Стили для статусов автомобилей */
+.status-available {
+    color: green;
+    font-weight: bold;
+}
+
+.status-unavailable {
+    color: red;
+    font-weight: bold;
+}
+
+.status-reserved {
+    color: orange;
+    font-weight: bold;
+}
+
+/* Стили для кнопки аренды */
+.rent-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Стили для карточек заявок */
+.request-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+}
+
+.admin-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.approve-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reject-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reason-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Стили для страницы условий */
+.terms-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.terms-section {
+    margin-bottom: 30px;
+}
+
+.terms-section h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.terms-list {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.terms-list li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.highlight {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-left: 4px solid #4CAF50;
+    margin: 15px 0;
+}
+
+/* Адаптивные стили */
+@media (max-width: 1024px) {
+    .adv {
+        width: 45%;
+    }
+
+    nav a {
+        margin: 0 10px;
+        font-size: 1em;
+    }
+
+    .hero h1 {
+        font-size: 1.6em;
+    }
+
+    .hero p {
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 768px) {
+    header, footer {
+        padding: 15px;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    nav a {
+        margin: 0;
+        font-size: 1em;
+    }
+
+    .advantage-grid {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 10px;
+    }
+
+    .adv {
+        width: 90%;
+        max-width: 100%;
+    }
+
+    .hero {
+        padding: 30px 15px;
+    }
+
+    .hero h1 {
+        font-size: 1.4em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    form input, form select, .reason-input {
+        font-size: 1em;
+    }
+
+    button, .approve-btn, .reject-btn {
+        padding: 10px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    header img.logo {
+        max-height: 40px;
+    }
+
+    .hero h1 {
+        font-size: 1.2em;
+    }
+
+    .hero p {
+        font-size: 0.95em;
+    }
+
+    .adv img {
+        width: 80px;
+    }
+
+    .adv h3 {
+        font-size: 1.2em;
+    }
+
+    .adv p {
+        font-size: 0.95em;
+    }
+
+    .order-card, .request-card {
+        padding: 15px;
+    }
+
+    .terms-container {
+        padding: 15px;
+    }
+
+    .terms-section h2 {
+        font-size: 1.2em;
+    }
+
+    .terms-list li {
+        font-size: 0.95em;
+    }
+}
+
